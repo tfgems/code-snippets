@@ -1,0 +1,27 @@
+Node.js App Stop Commands - Print Friendly
+
+Problem: "Can't acquire lock for app" error in cPanel Node.js interface
+
+Solution: Use terminal commands to kill Node.js processes
+
+Commands to try in order:
+
+1. Basic kill: pkill -f node
+
+2. Force kill: pkill -9 -f node
+
+3. Target server.js: pkill -f "server.js"
+
+4. Find and kill all: ps aux | grep node | grep -v grep | awk '{print $2}' | xargs kill -9
+
+5. Clean lock files: rm -f /tmp/.node-app-lock* ~/.pm2/logs/* ~/.pm2/pids/*
+
+Quick Solution (recommended): pkill -9 -f node && sleep 5 && echo "Node processes killed"
+
+Steps:
+
+SSH into your hosting server
+Run the Quick Solution command above
+Wait 30 seconds
+Try starting your app in cPanel again
+Note: The lock error should be resolved after running these commands.
